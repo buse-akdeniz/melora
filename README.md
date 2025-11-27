@@ -1,40 +1,57 @@
-# Melora Ürün Kataloğu
+# Melora
 
-Melora, modern ve sade bir ürün kataloğu arayüzü sunan statik bir web projesidir. Proje, tasarım odaklı bir ürün listesi sayfasını HTML ve CSS kullanarak hazırlar.
+Melora is a modern marketplace platform focused on transforming digital shopping into a more personalized and inspiring experience. This project is currently under development and will be presented for professional review.
 
-## İçerik
+---
 
-- `index.html`: Ana ürün sayfası ve içerik yapısı
-- `style.css`: Tipografi, grid düzeni ve responsive tasarım stilleri
+## 🚀 Vision
 
-## Nasıl Çalıştırılır
+To create a trusted and high-quality online marketplace where customers can easily explore curated products while vendors gain visibility and business growth.
 
-1. Depoyu klonla:
-   ```bash
-   git clone https://github.com/buse-akdeniz/melora.git
-   cd melora
-   ```
-2. Dosyaları doğrudan aç veya yerel bir sunucuda çalıştır:
-   ```bash
-   open index.html
-   # veya
-   python3 -m http.server
-   ```
+---
 
-## Geliştirme Notları
+## ✨ Features (In Progress)
 
-- Ürün kartları şimdilik statik HTML içeriyor; ileride JSON/veritabanı entegrasyonu planlanıyor.
-- Google Fonts üzerinden Poppins ailesi kullanılıyor, bağlantılar `index.html` içinde tanımlı.
-- Temel düzen `style.css` dosyasındaki grid yapısı ile yönetiliyor; yeni bileşen eklerken mevcut sınıfları tekrar kullanmaya dikkat et.
+- Clean and responsive landing page
+- Product listing UI with future filtering options
+- Basic authentication mock screens
+- Simple and scalable code architecture
+- UI that adapts to mobile and tablet screens
 
-## Katkı
+More features will be added during the development cycle.
 
-1. Yeni bir branch aç
-2. Değişikliklerini yap ve test et
-3. Açıklayıcı mesajlarla commit at
-4. Pull request oluştur
+---
 
-## Lisans
+## 🧩 Tech Stack
 
-Bu proje için henüz bir lisans belirtilmedi. Kullanım koşulları için repo sahibine danışabilirsin.
+| Category | Technology |
+|---------|------------|
+| Frontend | HTML, CSS, JavaScript |
+| Version Control | Git, GitHub |
+| Development Environment | Cursor / macOS |
+
+---
+
+## 📅 Development Timeline
+
+| Milestone | Target |
+|----------|--------|
+| Base UI + Navigation | Week 1 |
+| Product cards + Mock data | Week 2 |
+| Authentication screen placeholders | Week 2 |
+| Deployment for demo review | Week 2 |
+
+> Estimated total: **2 weeks** for presentable MVP
+
+---
+
+## 🛠️ Run Locally
+
+```bash
+git clone https://github.com/buse-akdeniz/melora.git
+cd melora
+open index.html
+
+
+
 
