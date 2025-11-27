@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>Melora | Ürünler</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-mark">M</span>
+        <span class="logo-text">Melora</span>
+      </div>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link active">Ana Sayfa</a>
+        <a href="products.html" class="nav-link">Ürünler</a>
+        <a href="#about" class="nav-link">Hakkımızda</a>
+        <a href="#contact" class="nav-link">İletişim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="products-page">
+    <section class="container" style="padding: 32px 0;">
+      <h1 style="font-size: 24px; margin-bottom: 16px;">Tüm Ürünler</h1>
+      <p style="font-size: 14px; opacity: 0.8; margin-bottom: 24px;">
+        Başlangıç için örnek ürünler listeleniyor. Sonraki adımda bu ürünleri JSON ya da veritabanı
+        üzerinden dinamik olarak yöneteceğiz.
+      </p>
+
+      <!-- ÜRÜN KARTLARI -->
+      <div class="products-grid">
+        <!-- ÜRÜN 1 -->
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-image-text">Melora Product</span>
+          </div>
+          <span class="product-category">Melora Koleksiyonu</span>
+          <h2>Minimal masa üstü dekor seti</h2>
+          <p>Vazo, küçük tepsi ve şamdan içeren sade bir set.</p>
+        </div>
+
+        <!-- ÜRÜN 2 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-image-text">Melora Product</span>
+            </div>
+          <span class="product-category">Melora Koleksiyonu</span>
+          <h2>Nötr ton yatak örtüsü</h2>
+          <p>Yumuşak dokulu, çift kişilik, makinede yıkanabilir.</p>
+        </div>
+
+        <!-- ÜRÜN 3 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-image-text">Melora Product</span>
+            </div>
+          <span class="product-category">Melora Koleksiyonu</span>
+          <h2>Seramik kahve fincan takımı</h2>
+          <p>4 parça, bulaşık makinesine uygun, mat yüzey.</p>
+        </div>
+
+        <!-- ÜRÜN 4 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-image-text">Melora Product</span>
+            </div>
+          <span class="product-category">Melora Koleksiyonu</span>
+          <h2>Oversize basic sweatshirt</h2>
+          <p>Bej renkte, günlük kullanıma uygun, yumuşak iç yüzey.</p>
+        </div>
+
+        <!-- ÜRÜN 5 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-image-text">Melora Product</span>
+            </div>
+          <span class="product-category">Melora Koleksiyonu</span>
+          <h2>Minimal günlük sırt çantası</h2>
+          <p>Şehir içi kullanım için hafif ve bölmeli tasarım.</p>
+        </div>
+
+        <!-- ÜRÜN 6 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-image-text">Melora Product</span>
+            </div>
+          <span class="product-category">Melora Koleksiyonu</span>
+          <h2>Aromatik oda & vücut spreyi</h2>
+          <p>Hafif kokulu, ferahlatıcı ve yoğun olmayan formül.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Melora. Tüm hakları saklıdır.</span>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

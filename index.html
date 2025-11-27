@@ -1,96 +1,45 @@
-index.html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="style.css">
-  <title>Melora | Ürünler</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Melora | Ana Sayfa</title>
 </head>
-<body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="logo">
-        <span class="logo-mark">M</span>
-        <span class="logo-text">Melora</span>
-      </div>
 
-      <nav class="nav">
-        <a href="index.html" class="nav-link">Ana Sayfa</a>
-        <a href="products.html" class="nav-link active">Ürünler</a>
-        <a href="index.html#about" class="nav-link">Hakkımızda</a>
-        <a href="index.html#contact" class="nav-link">İletişim</a>
+<body>
+  <header class="top-bar">
+    <div class="container">
+      <div class="logo">Melora</div>
+      <button
+  class="menu-toggle"
+  aria-label="Menüyü aç/kapat"
+  onclick="document.getElementById('mobile-menu').classList.toggle('show')"
+>
+  ☰
+</button>
+
+      <nav class="nav-links" id="mobile-menu">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="products.html">Ürünler</a>
+        <a href="#">Hakkımızda</a>
+        <a href="#">İletişim</a>
       </nav>
     </div>
   </header>
 
-  <main class="products-page">
-    <section class="container" style="padding: 32px 0;">
-      <h1 style="font-size: 24px; margin-bottom: 16px;">Tüm Ürünler</h1>
-      <p style="font-size: 14px; opacity: 0.8; margin-bottom: 24px;">
-        Başlangıç için örnek ürünler listeleniyor. Sonraki adımda bu ürünleri JSON ya da veritabanı
-        üzerinden dinamik olarak yöneteceğiz.
-      </p>
-
-      <!-- ÜRÜN KARTLARI -->
-      <div class="products-grid">
-        <div class="product-card">
-          <span class="product-category">Ev & Yaşam</span>
-          <h2>Minimal masa üstü dekor seti</h2>
-          <p>Vazo, küçük tepsi ve şamdan içeren sade bir set.</p>
-          <span class="product-price">549 TL</span>
-        </div>
-
-        <div class="product-card">
-          <span class="product-category">Tekstil</span>
-          <h2>Nötr ton yatak örtüsü</h2>
-          <p>Yumuşak dokulu, çift kişilik, makinede yıkanabilir.</p>
-          <span class="product-price">899 TL</span>
-        </div>
-
-        <div class="product-card">
-          <span class="product-category">Mutfak</span>
-          <h2>Seramik kahve fincan takımı</h2>
-          <p>4 parça, bulaşık makinesine uygun, mat yüzey.</p>
-          <span class="product-price">429 TL</span>
-        </div>
-
-        <div class="product-card">
-          <span class="product-category">Giyim</span>
-          <h2>Oversize basic sweatshirt</h2>
-          <p>Bej renkte, günlük kullanıma uygun, yumuşak iç yüzey.</p>
-          <span class="product-price">599 TL</span>
-        </div>
-
-        <div class="product-card">
-          <span class="product-category">Aksesuar</span>
-          <h2>Minimal günlük sırt çantası</h2>
-          <p>Şehir içi kullanım için hafif ve bölmeli tasarım.</p>
-          <span class="product-price">649 TL</span>
-        </div>
-
-        <div class="product-card">
-          <span class="product-category">Kişisel Bakım</span>
-          <h2>Aromatik oda & vücut spreyi</h2>
-          <p>Hafif kokulu, ferahlatıcı ve yoğun olmayan formül.</p>
-          <span class="product-price">299 TL</span>
+  <main class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Melora</h1>
+        <p>Modern alışveriş deneyimi.Ruhu yansıtan tasarımlarla.</p>
+        <div class="hero-actions">
+          <a href="products.html" class="btn btn-primary">Ürünleri Keşfet</a>
+          <a href="#" class="btn btn-ghost">Daha Fazla Bilgi</a>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© <span id="year"></span> Melora. Tüm hakları saklıdır.</span>
     </div>
-
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-  </footer>
-</body>
+  </main>
+  </body>
 </html>
+
