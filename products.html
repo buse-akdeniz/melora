@@ -14,91 +14,233 @@
   />
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <div class="logo">
-        <span class="logo-mark">M</span>
-        <span class="logo-text">Melora</span>
-      </div>
+  <header class="top-bar">
+    <div class="container">
+      <div class="logo">Melora</div>
+      <div class="header-right">
+        <button
+          class="menu-toggle"
+          aria-label="Menüyü aç/kapat"
+          onclick="document.getElementById('mobile-menu').classList.toggle('show')"
+        >
+          ☰
+        </button>
 
-      <nav class="nav">
-        <a href="index.html" class="nav-link active">Ana Sayfa</a>
-        <a href="products.html" class="nav-link">Ürünler</a>
-        <a href="#about" class="nav-link">Hakkımızda</a>
-        <a href="#contact" class="nav-link">İletişim</a>
-      </nav>
+        <nav class="nav-links" id="mobile-menu">
+          <a href="index.html">Ana Sayfa</a>
+          <a href="products.html" class="active">Ürünler</a>
+          <a href="index.html#about">Hakkımızda</a>
+          <a href="index.html#contact">İletişim</a>
+        </nav>
+
+        <div class="auth-buttons">
+          <button class="auth-btn ghost" data-auth-trigger="login">Giriş Yap</button>
+          <button class="auth-btn primary" data-auth-trigger="signup">Üye Ol</button>
+        </div>
+
+        <div class="auth-panel" id="auth-panel">
+          <div class="auth-panel-inner">
+            <div class="auth-panel-section" data-auth-section="login">
+              <h4>Giriş Yaparken İstenenler</h4>
+              <ul>
+                <li>Kayıtlı e-posta adresi</li>
+                <li>Şifre (en az 8 karakter)</li>
+                <li>Opsiyonel: 2FA doğrulama kodu</li>
+              </ul>
+            </div>
+            <div class="auth-panel-section" data-auth-section="signup">
+              <h4>Üye Olurken İstenenler</h4>
+              <ul>
+                <li>Ad & Soyad</li>
+                <li>E-posta adresi</li>
+                <li>Telefon numarası</li>
+                <li>Şifre & doğrulaması</li>
+                <li>KVKK / pazarlama izinleri</li>
+              </ul>
+            </div>
+          </div>
+          <button class="auth-panel-close" id="auth-panel-close" aria-label="Auth panelini kapat">✕</button>
+        </div>
+
+        <button class="cart-button" type="button" aria-label="Sepetim" id="cart-toggle">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-count" data-cart-count>0</span>
+        </button>
+      </div>
     </div>
   </header>
 
+  <div class="cart-toast" id="cart-toast" role="status" aria-live="polite">
+    <div class="cart-toast-info">
+      <span data-toast-text>Ürün sepete eklendi</span>
+      <span class="cart-toast-price" data-toast-price></span>
+    </div>
+    <div class="cart-toast-actions">
+      <button type="button" class="product-cta ghost small" id="continue-shopping">Alışverişe Devam</button>
+      <button type="button" class="product-cta small" id="go-to-cart">Sepete Git</button>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-panel" id="cart-panel" aria-live="polite">
+    <div class="cart-panel-header">
+      <div>
+        <p class="cart-panel-eyebrow">Sepet</p>
+        <h2>Seçilen Ürünler</h2>
+      </div>
+      <button class="cart-panel-close" type="button" aria-label="Sepeti kapat" id="cart-close">✕</button>
+    </div>
+    <div class="cart-panel-body">
+      <ul class="cart-items" data-cart-list></ul>
+      <p class="cart-empty" data-cart-empty>Sepetiniz boş.</p>
+    </div>
+    <div class="cart-panel-footer">
+      <div class="cart-total" data-cart-total>Ürünler: 0 TL</div>
+      <div class="cart-shipping-row">
+        <span>Kargo</span>
+        <span data-cart-shipping>0 TL</span>
+      </div>
+      <div class="cart-grandtotal" data-cart-grandtotal>Toplam: 0 TL</div>
+      <div class="cart-address">
+        <div>
+          <p class="cart-address-label">Teslimat Bilgileri</p>
+          <p class="cart-address-recipient">
+            <span data-cart-name>Ad Soyad</span>
+            <span data-cart-phone>+90 --- --- -- --</span>
+          </p>
+          <p class="cart-address-value" data-cart-street>Teslimat adresi henüz eklenmedi.</p>
+        </div>
+        <button class="address-edit" type="button" id="edit-address">Düzenle</button>
+      </div>
+      <button class="checkout-btn" type="button">Alışverişi Tamamla</button>
+    </div>
+  </aside>
+
   <main class="products-page">
-    <section class="container" style="padding: 32px 0;">
-      <h1 style="font-size: 24px; margin-bottom: 16px;">Tüm Ürünler</h1>
-      <p style="font-size: 14px; opacity: 0.8; margin-bottom: 24px;">
-        Başlangıç için örnek ürünler listeleniyor. Sonraki adımda bu ürünleri JSON ya da veritabanı
-        üzerinden dinamik olarak yöneteceğiz.
+    <section class="container products-hero">
+      <span class="eyebrow">Melora Koleksiyonu</span>
+      <h1>İlham veren seçkiler</h1>
+      <p>
+        Özenle seçilmiş ürün kartları, gerçek fotoğraflar ve profesyonel tipografi ile vitrininizi dijitalde
+        güçlendirin.
       </p>
 
-      <!-- ÜRÜN KARTLARI -->
-      <div class="products-grid">
-        <!-- ÜRÜN 1 -->
-        <div class="product-card">
-          <div class="product-image">
-            <span class="product-image-text">Melora Product</span>
+      <div class="filter-tags">
+        <button class="filter-chip active">Tümü</button>
+        <button class="filter-chip">Ev & Yaşam</button>
+        <button class="filter-chip">Tekstil</button>
+        <button class="filter-chip">Aksesuar</button>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="products-grid pro">
+        <article class="product-card pro">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=800&q=80" alt="Minimal masa üstü dekor seti" loading="lazy" />
+            <span class="product-badge">Yeni</span>
           </div>
-          <span class="product-category">Melora Koleksiyonu</span>
-          <h2>Minimal masa üstü dekor seti</h2>
-          <p>Vazo, küçük tepsi ve şamdan içeren sade bir set.</p>
-        </div>
-
-        <!-- ÜRÜN 2 -->
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-image-text">Melora Product</span>
+          <div class="product-meta">
+            <div class="product-meta-top">
+              <span class="product-category">Ev & Yaşam</span>
             </div>
-          <span class="product-category">Melora Koleksiyonu</span>
-          <h2>Nötr ton yatak örtüsü</h2>
-          <p>Yumuşak dokulu, çift kişilik, makinede yıkanabilir.</p>
-        </div>
-
-        <!-- ÜRÜN 3 -->
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-image-text">Melora Product</span>
+            <h3>Minimal masa üstü dekor seti</h3>
+            <p>Mat seramik detaylar ve sıcak tonlar ile çalışma masanızı sakinleştirin.</p>
+            <div class="product-actions">
+              <button class="product-cta ghost" type="button" aria-label="Favorilere ekle">♡</button>
+              <button class="product-cta" type="button" aria-label="Sepete ekle" data-cart-button data-product="Minimal masa üstü dekor seti" data-price="549">Sepete Ekle</button>
             </div>
-          <span class="product-category">Melora Koleksiyonu</span>
-          <h2>Seramik kahve fincan takımı</h2>
-          <p>4 parça, bulaşık makinesine uygun, mat yüzey.</p>
-        </div>
+          </div>
+        </article>
 
-        <!-- ÜRÜN 4 -->
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-image-text">Melora Product</span>
+        <article class="product-card pro">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1484100356142-db6ab6244067?auto=format&fit=crop&w=800&q=80" alt="Nötr ton yatak örtüsü" loading="lazy" />
+            <span class="product-badge accent">Sınırlı</span>
+          </div>
+          <div class="product-meta">
+            <div class="product-meta-top">
+              <span class="product-category">Tekstil</span>
             </div>
-          <span class="product-category">Melora Koleksiyonu</span>
-          <h2>Oversize basic sweatshirt</h2>
-          <p>Bej renkte, günlük kullanıma uygun, yumuşak iç yüzey.</p>
-        </div>
+            <h3>Nötr ton yatak örtüsü</h3>
+            <p>Katmanlı dokusu ve nefes alan kumaşı ile tüm mevsimler için ideal.</p>
+            <div class="product-actions">
+              <button class="product-cta ghost" type="button" aria-label="Favorilere ekle">♡</button>
+              <button class="product-cta" type="button" aria-label="Sepete ekle" data-cart-button data-product="Nötr ton yatak örtüsü" data-price="899">Sepete Ekle</button>
+            </div>
+          </div>
+        </article>
 
-        <!-- ÜRÜN 5 -->
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-image-text">Melora Product</span>
+        <article class="product-card pro">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=800&q=80" alt="Seramik kahve fincan takımı" loading="lazy" />
+            <span class="product-badge">Best Seller</span>
+          </div>
+          <div class="product-meta">
+            <div class="product-meta-top">
+              <span class="product-category">Mutfak</span>
             </div>
-          <span class="product-category">Melora Koleksiyonu</span>
-          <h2>Minimal günlük sırt çantası</h2>
-          <p>Şehir içi kullanım için hafif ve bölmeli tasarım.</p>
-        </div>
+            <h3>Seramik kahve fincan takımı</h3>
+            <p>El yapımı görünüm ve minimalist hatlar ile kahve ritüelinizi yükseltin.</p>
+            <div class="product-actions">
+              <button class="product-cta ghost" type="button" aria-label="Favorilere ekle">♡</button>
+              <button class="product-cta" type="button" aria-label="Sepete ekle" data-cart-button data-product="Seramik kahve fincan takımı" data-price="429">Sepete Ekle</button>
+            </div>
+          </div>
+        </article>
 
-        <!-- ÜRÜN 6 -->
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-image-text">Melora Product</span>
+        <article class="product-card pro">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="Oversize basic sweatshirt" loading="lazy" />
+            <span class="product-badge accent">Koleksiyon</span>
+          </div>
+          <div class="product-meta">
+            <div class="product-meta-top">
+              <span class="product-category">Giyim</span>
             </div>
-          <span class="product-category">Melora Koleksiyonu</span>
-          <h2>Aromatik oda & vücut spreyi</h2>
-          <p>Hafif kokulu, ferahlatıcı ve yoğun olmayan formül.</p>
-        </div>
+            <h3>Oversize basic sweatshirt</h3>
+            <p>Rahat kalıp, yumuşak iç yüzey ve şehir stiline uyumlu nötr ton.</p>
+            <div class="product-actions">
+              <button class="product-cta ghost" type="button" aria-label="Favorilere ekle">♡</button>
+              <button class="product-cta" type="button" aria-label="Sepete ekle" data-cart-button data-product="Oversize basic sweatshirt" data-price="599">Sepete Ekle</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card pro">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Minimal günlük sırt çantası" loading="lazy" />
+            <span class="product-badge">Yeni Renk</span>
+          </div>
+          <div class="product-meta">
+            <div class="product-meta-top">
+              <span class="product-category">Aksesuar</span>
+            </div>
+            <h3>Minimal günlük sırt çantası</h3>
+            <p>Hafif gövde, saklama cepleri ve dolu günler için ergonomik tasarım.</p>
+            <div class="product-actions">
+              <button class="product-cta ghost" type="button" aria-label="Favorilere ekle">♡</button>
+              <button class="product-cta" type="button" aria-label="Sepete ekle" data-cart-button data-product="Minimal günlük sırt çantası" data-price="649">Sepete Ekle</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card pro">
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Aromatik oda ve vücut spreyi" loading="lazy" />
+            <span class="product-badge accent">Favori</span>
+          </div>
+          <div class="product-meta">
+            <div class="product-meta-top">
+              <span class="product-category">Kişisel Bakım</span>
+            </div>
+            <h3>Aromatik oda & vücut spreyi</h3>
+            <p>Bitki esansları ile ferahlatan, gün boyu hafif kalan imza koku.</p>
+            <div class="product-actions">
+              <button class="product-cta ghost" type="button" aria-label="Favorilere ekle">♡</button>
+              <button class="product-cta" type="button" aria-label="Sepete ekle" data-cart-button data-product="Aromatik oda & vücut spreyi" data-price="299">Sepete Ekle</button>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </main>
@@ -110,6 +252,234 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+      (function () {
+        const cartCountEl = document.querySelector("[data-cart-count]");
+        const toastEl = document.getElementById("cart-toast");
+        const cartButtons = document.querySelectorAll("[data-cart-button]");
+        const cartToggle = document.getElementById("cart-toggle");
+        const cartClose = document.getElementById("cart-close");
+        const cartPanel = document.getElementById("cart-panel");
+        const cartOverlay = document.getElementById("cart-overlay");
+        const cartList = document.querySelector("[data-cart-list]");
+        const cartEmpty = document.querySelector("[data-cart-empty]");
+        const cartTotal = document.querySelector("[data-cart-total]");
+        const cartShippingEl = document.querySelector("[data-cart-shipping]");
+        const cartGrandTotalEl = document.querySelector("[data-cart-grandtotal]");
+        let cartItems = [];
+        let toastTimer = null;
+        const toastText = document.querySelector("[data-toast-text]");
+        const toastPrice = document.querySelector("[data-toast-price]");
+        const continueShoppingBtn = document.getElementById("continue-shopping");
+        const goToCartBtn = document.getElementById("go-to-cart");
+        const authPanel = document.getElementById("auth-panel");
+        const authClose = document.getElementById("auth-panel-close");
+        const authSections = document.querySelectorAll("[data-auth-section]");
+        const authTriggers = document.querySelectorAll("[data-auth-trigger]");
+        const cartNameEl = document.querySelector("[data-cart-name]");
+        const cartPhoneEl = document.querySelector("[data-cart-phone]");
+        const cartStreetEl = document.querySelector("[data-cart-street]");
+        const editAddressBtn = document.getElementById("edit-address");
+        const defaultAddress = {
+          name: "Ad Soyad",
+          phone: "+90 --- --- -- --",
+          street: "Teslimat adresi henüz eklenmedi.",
+        };
+        let customerAddress = { ...defaultAddress };
+        function syncAddress() {
+          if (cartNameEl) cartNameEl.textContent = customerAddress.name;
+          if (cartPhoneEl) cartPhoneEl.textContent = customerAddress.phone;
+          if (cartStreetEl) cartStreetEl.textContent = customerAddress.street;
+        }
+        syncAddress();
+
+        const currency = new Intl.NumberFormat("tr-TR", {
+          style: "currency",
+          currency: "TRY",
+          maximumFractionDigits: 0,
+        });
+
+        function openCart(fullView = false) {
+          cartPanel.classList.add("show");
+          if (fullView) {
+            document.body.classList.add("cart-fullscreen");
+            cartOverlay.classList.remove("show");
+          } else {
+            document.body.classList.remove("cart-fullscreen");
+            cartOverlay.classList.add("show");
+          }
+        }
+
+        function closeCart() {
+          cartPanel.classList.remove("show");
+          cartOverlay.classList.remove("show");
+          document.body.classList.remove("cart-fullscreen");
+        }
+
+        cartToggle?.addEventListener("click", () => openCart(false));
+        cartClose?.addEventListener("click", closeCart);
+        cartOverlay?.addEventListener("click", closeCart);
+
+        function showAuthPanel(type) {
+          if (!authPanel) return;
+          authPanel.classList.add("show");
+          authSections.forEach((section) => {
+            section.classList.toggle("active", section.dataset.authSection === type);
+          });
+        }
+
+        function hideAuthPanel() {
+          authPanel?.classList.remove("show");
+        }
+
+        authTriggers.forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            showAuthPanel(btn.dataset.authTrigger);
+          });
+        });
+
+        authClose?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          hideAuthPanel();
+        });
+
+        document.addEventListener("click", (event) => {
+          if (authPanel && authPanel.classList.contains("show") && !authPanel.contains(event.target)) {
+            hideAuthPanel();
+          }
+        });
+
+        function getCartCount() {
+          return cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function renderCart() {
+          if (!cartList || !cartEmpty || !cartTotal) return;
+          if (cartCountEl) cartCountEl.textContent = getCartCount();
+          cartList.innerHTML = "";
+          if (cartItems.length === 0) {
+            cartEmpty.style.display = "block";
+            cartTotal.textContent = "Ürünler: 0 TL";
+            if (cartShippingEl) cartShippingEl.textContent = "0 TL";
+            if (cartGrandTotalEl) cartGrandTotalEl.textContent = "Toplam: 0 TL";
+            return;
+          }
+
+          cartEmpty.style.display = "none";
+          let total = 0;
+          cartItems.forEach((item, index) => {
+            const lineTotal = item.price * item.quantity;
+            total += lineTotal;
+            const li = document.createElement("li");
+            li.className = "cart-item";
+            li.innerHTML = `
+              <div>
+                <p class="cart-item-name">${item.name}</p>
+                <span class="cart-item-price">Birim: ${currency.format(item.price)}</span>
+                <span class="cart-item-subtotal">Toplam: ${currency.format(lineTotal)}</span>
+              </div>
+              <div class="cart-item-actions">
+                <div class="qty-control">
+                  <button class="qty-btn" data-qty data-action="decrease" data-index="${index}">-</button>
+                  <span class="qty-value">${item.quantity}</span>
+                  <button class="qty-btn" data-qty data-action="increase" data-index="${index}">+</button>
+                </div>
+                <button class="cart-item-remove" aria-label="Ürünü sepetten çıkar" data-remove="${index}">✕</button>
+              </div>
+            `;
+            cartList.appendChild(li);
+          });
+          cartTotal.textContent = `Ürünler: ${currency.format(total)}`;
+          const shipping = total >= 1000 ? 0 : 49;
+          if (cartShippingEl) {
+            cartShippingEl.textContent = shipping === 0 ? "Ücretsiz" : currency.format(shipping);
+          }
+          if (cartGrandTotalEl) {
+            cartGrandTotalEl.textContent = `Toplam: ${currency.format(total + shipping)}`;
+          }
+
+          cartList.querySelectorAll("[data-remove]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const idx = Number(btn.dataset.remove);
+              cartItems.splice(idx, 1);
+              if (cartCountEl) cartCountEl.textContent = getCartCount();
+              renderCart();
+            });
+          });
+
+          cartList.querySelectorAll("[data-qty]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const idx = Number(btn.dataset.index);
+              const action = btn.dataset.action;
+              const item = cartItems[idx];
+              if (!item) return;
+              if (action === "increase") {
+                item.quantity += 1;
+              } else if (action === "decrease") {
+                if (item.quantity > 1) {
+                  item.quantity -= 1;
+                } else {
+                  cartItems.splice(idx, 1);
+                }
+              }
+              if (cartCountEl) cartCountEl.textContent = getCartCount();
+              renderCart();
+            });
+          });
+        }
+
+        continueShoppingBtn?.addEventListener("click", () => {
+          toastEl?.classList.remove("show");
+        });
+
+        goToCartBtn?.addEventListener("click", () => openCart(true));
+
+        editAddressBtn?.addEventListener("click", () => {
+          const fullName = window.prompt("Ad soyad:", customerAddress.name);
+          if (fullName === null) return;
+          const phone = window.prompt("Telefon (5xx ...):", customerAddress.phone);
+          if (phone === null) return;
+          const street = window.prompt("Teslimat adresi:", customerAddress.street);
+          if (street === null) return;
+          customerAddress = {
+            name: fullName.trim() || defaultAddress.name,
+            phone: phone.trim() || defaultAddress.phone,
+            street: street.trim() || defaultAddress.street,
+          };
+          syncAddress();
+        });
+
+        cartButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const price = Number(button.dataset.price || 0);
+            const productName = button.dataset.product || "Ürün";
+            const existing = cartItems.find((item) => item.name === productName);
+            if (existing) {
+              existing.quantity += 1;
+            } else {
+              cartItems.push({ name: productName, price, quantity: 1 });
+            }
+            renderCart();
+
+            if (cartCountEl) {
+              cartCountEl.textContent = getCartCount();
+            }
+
+            if (toastEl) {
+              if (toastText) toastText.textContent = `${productName} sepete eklendi`;
+              if (toastPrice) toastPrice.textContent = currency.format(price);
+              toastEl.classList.add("show");
+              if (toastTimer) {
+                clearTimeout(toastTimer);
+              }
+              toastTimer = setTimeout(() => {
+                toastEl.classList.remove("show");
+              }, 2000);
+            }
+            openCart();
+          });
+        });
+      })();
     </script>
   </footer>
 </body>

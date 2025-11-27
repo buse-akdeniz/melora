@@ -1,45 +1,139 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Melora | Ana Sayfa</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Melora | Ana Sayfa</title>
+  </head>
 
-<body>
-  <header class="top-bar">
-    <div class="container">
-      <div class="logo">Melora</div>
-      <button
-  class="menu-toggle"
-  aria-label="Menüyü aç/kapat"
-  onclick="document.getElementById('mobile-menu').classList.toggle('show')"
->
-  ☰
-</button>
+  <body>
+    <header class="top-bar">
+      <div class="container">
+        <div class="logo">Melora</div>
+        <button
+          class="menu-toggle"
+          aria-label="Menüyü aç/kapat"
+          onclick="document.getElementById('mobile-menu').classList.toggle('show')"
+        >
+          ☰
+        </button>
 
-      <nav class="nav-links" id="mobile-menu">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="products.html">Ürünler</a>
-        <a href="#">Hakkımızda</a>
-        <a href="#">İletişim</a>
-      </nav>
-    </div>
-  </header>
+        <nav class="nav-links" id="mobile-menu">
+          <a href="index.html">Ana Sayfa</a>
+          <a href="products.html">Ürünler</a>
+          <a href="#about">Hakkımızda</a>
+          <a href="#contact">İletişim</a>
+        </nav>
 
-  <main class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h1>Melora</h1>
-        <p>Modern alışveriş deneyimi.Ruhu yansıtan tasarımlarla.</p>
-        <div class="hero-actions">
-          <a href="products.html" class="btn btn-primary">Ürünleri Keşfet</a>
-          <a href="#" class="btn btn-ghost">Daha Fazla Bilgi</a>
+        <div class="auth-buttons">
+          <button class="auth-btn ghost" data-auth-trigger="login">Giriş Yap</button>
+          <button class="auth-btn primary" data-auth-trigger="signup">Üye Ol</button>
+        </div>
+
+        <div class="auth-panel" id="auth-panel">
+          <div class="auth-panel-inner">
+            <div class="auth-panel-section" data-auth-section="login">
+              <h4>Giriş Yaparken İstenenler</h4>
+              <ul>
+                <li>Kayıtlı e-posta adresi</li>
+                <li>Şifre (en az 8 karakter)</li>
+                <li>Opsiyonel: 2FA doğrulama kodu</li>
+              </ul>
+            </div>
+            <div class="auth-panel-section" data-auth-section="signup">
+              <h4>Üye Olurken İstenenler</h4>
+              <ul>
+                <li>Ad & Soyad</li>
+                <li>E-posta adresi</li>
+                <li>Telefon numarası</li>
+                <li>Şifre & doğrulaması</li>
+                <li>KVKK / pazarlama izinleri</li>
+              </ul>
+            </div>
+          </div>
+          <button class="auth-panel-close" id="auth-panel-close" aria-label="Auth panelini kapat">✕</button>
         </div>
       </div>
-    </div>
-  </main>
+    </header>
+
+    <main class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h1>Melora</h1>
+          <p>Modern alışveriş deneyimi. Ruhu yansıtan tasarımlarla.</p>
+          <div class="hero-actions">
+            <a href="products.html" class="btn btn-primary">Ürünleri Keşfet</a>
+            <a href="#about" class="btn btn-ghost">Daha Fazla Bilgi</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>Hakkımızda</h2>
+        <p>
+          Melora, modern ve minimal bir alışveriş deneyimi sunmak için tasarlanmış bir dijital vitrin projesidir. Amaç;
+          tasarım odaklı ürünleri sade, anlaşılır ve kullanıcı dostu bir arayüzle buluşturmak.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-muted">
+      <div class="container">
+        <h2>İletişim</h2>
+        <p>
+          İş birliği, öneri veya geri bildirimleriniz için bizimle e-posta üzerinden iletişime geçebilirsiniz.
+        </p>
+        <p><strong>busefryy@gmail.com</strong></p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Melora. Tüm hakları saklıdır.</span>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      (function () {
+        const panel = document.getElementById("auth-panel");
+        const closeBtn = document.getElementById("auth-panel-close");
+        const sections = document.querySelectorAll("[data-auth-section]");
+        const triggers = document.querySelectorAll("[data-auth-trigger]");
+
+        function showPanel(type) {
+          if (!panel) return;
+          panel.classList.add("show");
+          sections.forEach((section) => {
+            section.classList.toggle("active", section.dataset.authSection === type);
+          });
+        }
+
+        function hidePanel() {
+          panel?.classList.remove("show");
+        }
+
+        triggers.forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            showPanel(btn.dataset.authTrigger);
+          });
+        });
+
+        closeBtn?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          hidePanel();
+        });
+
+        document.addEventListener("click", (event) => {
+          if (panel && panel.classList.contains("show") && !panel.contains(event.target)) {
+            hidePanel();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
-
