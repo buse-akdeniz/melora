@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Ödeme | Melora</title>
+  </head>
+
+  <body>
+    <header class="top-bar">
+      <div class="container">
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Melora</a></div>
+        <div class="header-right">
+          <nav class="nav-links">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="products.html">Ürünler</a>
+            <a href="index.html#about">Hakkımızda</a>
+            <a href="index.html#contact">İletişim</a>
+          </nav>
+          <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
+            <a href="signup.html" class="auth-btn primary">Üye Ol</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="checkout-page">
+      <div class="container">
+        <div class="checkout-header">
+          <h1>Ödeme</h1>
+          <p>Siparişinizi tamamlamak için son adımları doldurun</p>
+        </div>
+
+        <div class="checkout-grid">
+          <div class="checkout-main">
+            <!-- Teslimat Bilgileri -->
+            <section class="checkout-section">
+              <h2>Teslimat Bilgileri</h2>
+              <form class="checkout-form" id="delivery-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="delivery-name">Ad Soyad</label>
+                    <input type="text" id="delivery-name" name="name" placeholder="Adınız Soyadınız" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="delivery-phone">Telefon</label>
+                    <input type="tel" id="delivery-phone" name="phone" placeholder="5xx xxx xx xx" required />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="delivery-address">Adres</label>
+                  <textarea id="delivery-address" name="address" rows="3" placeholder="Mahalle, sokak, bina no, daire no" required></textarea>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="delivery-city">İl</label>
+                    <input type="text" id="delivery-city" name="city" placeholder="İstanbul" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="delivery-district">İlçe</label>
+                    <input type="text" id="delivery-district" name="district" placeholder="Kadıköy" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="delivery-postal">Posta Kodu</label>
+                    <input type="text" id="delivery-postal" name="postal" placeholder="34000" required />
+                  </div>
+                </div>
+              </form>
+            </section>
+
+            <!-- Ödeme Yöntemi -->
+            <section class="checkout-section">
+              <h2>Ödeme Yöntemi</h2>
+              <div class="payment-methods">
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="credit-card" checked />
+                  <div class="payment-option-content">
+                    <span class="payment-icon">💳</span>
+                    <div>
+                      <strong>Kredi / Banka Kartı</strong>
+                      <p>Visa, Mastercard, Troy</p>
+                    </div>
+                  </div>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="bank-transfer" />
+                  <div class="payment-option-content">
+                    <span class="payment-icon">🏦</span>
+                    <div>
+                      <strong>Havale / EFT</strong>
+                      <p>Banka hesabına transfer</p>
+                    </div>
+                  </div>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="cash-on-delivery" />
+                  <div class="payment-option-content">
+                    <span class="payment-icon">💰</span>
+                    <div>
+                      <strong>Kapıda Ödeme</strong>
+                      <p>Nakit veya kredi kartı</p>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Kart Bilgileri (Kredi kartı seçildiğinde) -->
+              <div class="card-details" id="card-details">
+                <div class="form-group">
+                  <label for="card-number">Kart Numarası</label>
+                  <input type="text" id="card-number" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="card-expiry">Son Kullanma</label>
+                    <input type="text" id="card-expiry" name="cardExpiry" placeholder="MM/YY" maxlength="5" />
+                  </div>
+                  <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" name="cardCvv" placeholder="123" maxlength="3" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="card-name">Kart Üzerindeki İsim</label>
+                  <input type="text" id="card-name" name="cardName" placeholder="AD SOYAD" />
+                </div>
+              </div>
+            </section>
+
+            <!-- Fatura Bilgileri -->
+            <section class="checkout-section">
+              <h2>Fatura Bilgileri</h2>
+              <div class="form-group checkbox-group">
+                <label>
+                  <input type="checkbox" id="same-as-delivery" checked />
+                  <span>Teslimat bilgileri ile aynı</span>
+                </label>
+              </div>
+              <form class="checkout-form" id="billing-form" style="display: none;">
+                <div class="form-group">
+                  <label for="billing-name">Ad Soyad / Firma Adı</label>
+                  <input type="text" id="billing-name" name="billingName" />
+                </div>
+                <div class="form-group">
+                  <label for="billing-tax">Vergi No / TC Kimlik No</label>
+                  <input type="text" id="billing-tax" name="billingTax" />
+                </div>
+                <div class="form-group">
+                  <label for="billing-address">Fatura Adresi</label>
+                  <textarea id="billing-address" name="billingAddress" rows="3"></textarea>
+                </div>
+              </form>
+            </section>
+          </div>
+
+          <!-- Sipariş Özeti -->
+          <aside class="checkout-sidebar">
+            <div class="order-summary">
+              <h2>Sipariş Özeti</h2>
+              <div class="order-items" id="order-items">
+                <!-- Sepet öğeleri buraya gelecek -->
+              </div>
+              <div class="order-totals">
+                <div class="order-row">
+                  <span>Ürünler</span>
+                  <span id="order-subtotal">0 TL</span>
+                </div>
+                <div class="order-row">
+                  <span>Kargo</span>
+                  <span id="order-shipping">0 TL</span>
+                </div>
+                <div class="order-row order-total">
+                  <span>Toplam</span>
+                  <span id="order-grandtotal">0 TL</span>
+                </div>
+              </div>
+              <button type="button" class="checkout-submit-btn" id="complete-order">Siparişi Tamamla</button>
+              <p class="checkout-note">Siparişinizi tamamlayarak <a href="#">Kullanım Koşulları</a> ve <a href="#">Gizlilik Politikası</a>'nı kabul etmiş olursunuz.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Melora. Tüm hakları saklıdır.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

@@ -22,55 +22,49 @@
         <nav class="nav-links" id="mobile-menu">
           <a href="index.html">Ana Sayfa</a>
           <a href="products.html">Ürünler</a>
-          <a href="#about">Hakkımızda</a>
-          <a href="#contact">İletişim</a>
+          <a href="#" id="about-link">Hakkımızda</a>
+          <a href="#" id="contact-link">İletişim</a>
         </nav>
 
-        <div class="auth-buttons">
-          <button class="auth-btn ghost" data-auth-trigger="login">Giriş Yap</button>
-          <button class="auth-btn primary" data-auth-trigger="signup">Üye Ol</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="search-input" placeholder="Ürün ara..." />
+          <button class="search-submit-btn" type="button" aria-label="Ara">🔍</button>
         </div>
 
-        <div class="auth-panel" id="auth-panel">
-          <div class="auth-panel-inner">
-            <div class="auth-panel-section" data-auth-section="login">
-              <h4>Giriş Yaparken İstenenler</h4>
-              <ul>
-                <li>Kayıtlı e-posta adresi</li>
-                <li>Şifre (en az 8 karakter)</li>
-                <li>Opsiyonel: 2FA doğrulama kodu</li>
-              </ul>
-            </div>
-            <div class="auth-panel-section" data-auth-section="signup">
-              <h4>Üye Olurken İstenenler</h4>
-              <ul>
-                <li>Ad & Soyad</li>
-                <li>E-posta adresi</li>
-                <li>Telefon numarası</li>
-                <li>Şifre & doğrulaması</li>
-                <li>KVKK / pazarlama izinleri</li>
-              </ul>
-            </div>
-          </div>
-          <button class="auth-panel-close" id="auth-panel-close" aria-label="Auth panelini kapat">✕</button>
+        <div class="auth-buttons" id="auth-buttons">
+          <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
+          <a href="signup.html" class="auth-btn primary">Üye Ol</a>
         </div>
+
+        <button class="favorites-button" type="button" aria-label="Favorilerim" id="favorites-toggle">
+          <span class="favorites-icon">♡</span>
+          <span class="favorites-count" data-favorites-count>0</span>
+        </button>
+
+        <button class="cart-button" type="button" aria-label="Sepetim" id="cart-toggle">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-count" data-cart-count>0</span>
+        </button>
       </div>
     </header>
 
     <main class="hero">
       <div class="container hero-content">
         <div class="hero-text">
+          <div class="melora-logo">
+            <div class="logo-symbol">M</div>
+          </div>
           <h1>Melora</h1>
           <p>Modern alışveriş deneyimi. Ruhu yansıtan tasarımlarla.</p>
           <div class="hero-actions">
             <a href="products.html" class="btn btn-primary">Ürünleri Keşfet</a>
-            <a href="#about" class="btn btn-ghost">Daha Fazla Bilgi</a>
+            <a href="#" class="btn btn-ghost" id="about-btn">Daha Fazla Bilgi</a>
           </div>
         </div>
       </div>
     </main>
 
-    <section id="about" class="section">
+    <section id="about" class="section section-muted" style="display: none;">
       <div class="container">
         <h2>Hakkımızda</h2>
         <p>
@@ -80,7 +74,7 @@
       </div>
     </section>
 
-    <section id="contact" class="section section-muted">
+    <section id="contact" class="section section-muted" style="display: none;">
       <div class="container">
         <h2>İletişim</h2>
         <p>
@@ -96,44 +90,6 @@
       </div>
     </footer>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-      (function () {
-        const panel = document.getElementById("auth-panel");
-        const closeBtn = document.getElementById("auth-panel-close");
-        const sections = document.querySelectorAll("[data-auth-section]");
-        const triggers = document.querySelectorAll("[data-auth-trigger]");
-
-        function showPanel(type) {
-          if (!panel) return;
-          panel.classList.add("show");
-          sections.forEach((section) => {
-            section.classList.toggle("active", section.dataset.authSection === type);
-          });
-        }
-
-        function hidePanel() {
-          panel?.classList.remove("show");
-        }
-
-        triggers.forEach((btn) => {
-          btn.addEventListener("click", (event) => {
-            event.stopPropagation();
-            showPanel(btn.dataset.authTrigger);
-          });
-        });
-
-        closeBtn?.addEventListener("click", (event) => {
-          event.stopPropagation();
-          hidePanel();
-        });
-
-        document.addEventListener("click", (event) => {
-          if (panel && panel.classList.contains("show") && !panel.contains(event.target)) {
-            hidePanel();
-          }
-        });
-      })();
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

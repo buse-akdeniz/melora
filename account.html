@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Hesabım | Melora</title>
+  </head>
+
+  <body>
+    <header class="top-bar">
+      <div class="container">
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Melora</a></div>
+        <div class="header-right">
+          <nav class="nav-links">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="products.html">Ürünler</a>
+            <a href="index.html#about">Hakkımızda</a>
+            <a href="index.html#contact">İletişim</a>
+          </nav>
+          <div class="auth-buttons">
+            <a href="account.html" class="auth-btn primary" id="account-link">Hesabım</a>
+            <button class="auth-btn ghost" id="logout-btn">Çıkış Yap</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="account-page">
+      <div class="container">
+        <div class="account-header">
+          <h1>Hesabım</h1>
+          <p>Hesap bilgilerinizi yönetin</p>
+        </div>
+
+        <div class="account-grid">
+          <aside class="account-sidebar">
+            <nav class="account-nav">
+              <a href="#profile" class="account-nav-link active" data-section="profile">Kişisel Bilgiler</a>
+              <a href="#orders" class="account-nav-link" data-section="orders">Siparişler</a>
+              <a href="#addresses" class="account-nav-link" data-section="addresses">Adresler</a>
+            </nav>
+          </aside>
+
+          <div class="account-content">
+            <!-- Kişisel Bilgiler -->
+            <section class="account-section active" id="profile-section">
+              <h2>Kişisel Bilgiler</h2>
+              <form class="account-form" id="profile-form">
+                <div class="form-group">
+                  <label for="profile-name">Ad Soyad</label>
+                  <input type="text" id="profile-name" name="name" placeholder="Adınız Soyadınız" required />
+                </div>
+                <div class="form-group">
+                  <label for="profile-email">E-posta</label>
+                  <input type="email" id="profile-email" name="email" placeholder="ornek@email.com" required />
+                </div>
+                <div class="form-group">
+                  <label for="profile-phone">Telefon</label>
+                  <input type="tel" id="profile-phone" name="phone" placeholder="5xx xxx xx xx" required />
+                </div>
+                <button type="submit" class="account-submit-btn">Bilgileri Güncelle</button>
+              </form>
+            </section>
+
+            <!-- Siparişler -->
+            <section class="account-section" id="orders-section">
+              <h2>Siparişler</h2>
+              <div class="orders-list" id="orders-list">
+                <p class="empty-state">Henüz siparişiniz bulunmamaktadır.</p>
+              </div>
+            </section>
+
+            <!-- Adresler -->
+            <section class="account-section" id="addresses-section">
+              <h2>Adresler</h2>
+              <div class="addresses-list" id="addresses-list">
+                <p class="empty-state">Henüz kayıtlı adresiniz bulunmamaktadır.</p>
+              </div>
+              
+              <div class="address-form-container" id="address-form-container" style="display: none;">
+                <h3>Yeni Adres Ekle</h3>
+                <form class="account-form" id="address-form">
+                  <div class="form-group">
+                    <label for="address-title">Başlık</label>
+                    <input type="text" id="address-title" name="title" placeholder="Örn: Ev, İş Yeri" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-city">İl</label>
+                    <input type="text" id="address-city" name="city" placeholder="İstanbul" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-district">İlçe</label>
+                    <input type="text" id="address-district" name="district" placeholder="Kadıköy" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-postal">Posta Kodu</label>
+                    <input type="text" id="address-postal" name="postal" placeholder="34000" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-street">Açık Adres</label>
+                    <textarea id="address-street" name="street" rows="4" placeholder="Mahalle, sokak, bina no, daire no" required></textarea>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="account-submit-btn">Adresi Kaydet</button>
+                    <button type="button" class="account-cancel-btn" id="cancel-address-btn">İptal</button>
+                  </div>
+                </form>
+              </div>
+              
+              <button type="button" class="account-add-btn" id="add-address-btn">Yeni Adres Ekle</button>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Melora. Tüm hakları saklıdır.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
