@@ -12,25 +12,85 @@
       <div class="container">
         <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Melora</a></div>
         <div class="header-right">
+          <button class="theme-toggle" type="button" aria-label="Tema değiştir" id="theme-toggle">
+            <span class="theme-toggle-icon sun">☀️</span>
+            <span class="theme-toggle-icon moon">🌙</span>
+            <span class="theme-toggle-slider"></span>
+          </button>
           <nav class="nav-links">
             <a href="index.html">Ana Sayfa</a>
             <a href="products.html">Ürünler</a>
             <a href="index.html#about">Hakkımızda</a>
             <a href="index.html#contact">İletişim</a>
           </nav>
-          <div class="auth-buttons">
+          <div class="auth-buttons" id="auth-buttons">
             <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
             <a href="signup.html" class="auth-btn primary">Üye Ol</a>
           </div>
+
+          <button class="favorites-button" type="button" aria-label="Favorilerim" id="favorites-toggle">
+            <span class="favorites-icon">♡</span>
+            <span class="favorites-count" data-favorites-count>0</span>
+          </button>
+
+          <button class="cart-button" type="button" aria-label="Sepetim" id="cart-toggle">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count" data-cart-count>0</span>
+          </button>
         </div>
       </div>
     </header>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-panel" id="cart-panel" aria-live="polite">
+      <div class="cart-panel-header">
+        <div>
+          <p class="cart-panel-eyebrow">Sepet</p>
+          <h2>Seçilen Ürünler</h2>
+        </div>
+        <button class="cart-panel-close" type="button" aria-label="Sepeti kapat" id="cart-close">✕</button>
+      </div>
+      <div class="cart-panel-body">
+        <ul class="cart-items" data-cart-list></ul>
+        <p class="cart-empty" data-cart-empty>Sepetiniz boş.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-total" data-cart-total>Ürünler: 0 TL</div>
+        <div class="cart-shipping-row">
+          <span>Kargo</span>
+          <span data-cart-shipping>0 TL</span>
+        </div>
+        <div class="cart-grandtotal" data-cart-grandtotal>Toplam: 0 TL</div>
+        <section class="cart-address">
+          <div class="cart-section-header">
+            <h3>Teslimat Adresi</h3>
+            <button type="button" id="edit-address" class="link-button">
+              Değiştir
+            </button>
+          </div>
+
+          <div class="cart-address-body">
+            <p class="cart-address-recipient" data-cart-name>Ad Soyad</p>
+            <p class="cart-address-line" data-cart-street>
+              Teslimat adresi henüz eklenmedi.
+            </p>
+            <p class="cart-address-phone">
+              Tel: <span data-cart-phone>+90 --- --- -- --</span>
+            </p>
+          </div>
+        </section>
+        <button class="checkout-btn" type="button">Alışverişi Tamamla</button>
+      </div>
+    </aside>
 
     <main class="auth-page">
       <div class="container">
         <div class="auth-container">
           <div class="auth-header">
-            <h1>Üye Ol</h1>
+            <div class="auth-logo">
+              <div class="logo-symbol" style="width: 60px; height: 40px; margin: 0 auto 16px;">M</div>
+            </div>
+            <h1>Hesap Oluştur</h1>
             <p>Yeni hesap oluşturarak alışverişe başlayın</p>
           </div>
 

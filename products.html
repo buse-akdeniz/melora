@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
   <title>Melora | Ürünler</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,7 +21,13 @@
         <button
           class="menu-toggle"
           aria-label="Menüyü aç/kapat"
-          onclick="document.getElementById('mobile-menu').classList.toggle('show')"
+          aria-expanded="false"
+          onclick="
+            const menu = document.getElementById('mobile-menu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            menu.classList.toggle('show');
+          "
         >
           ☰
         </button>
@@ -37,6 +43,12 @@
           <input type="text" class="search-input" id="search-input" placeholder="Ürün ara..." />
           <button class="search-submit-btn" type="button" aria-label="Ara">🔍</button>
         </div>
+
+        <button class="theme-toggle" type="button" aria-label="Tema değiştir" id="theme-toggle">
+          <span class="theme-toggle-icon sun">☀️</span>
+          <span class="theme-toggle-icon moon">🌙</span>
+          <span class="theme-toggle-slider"></span>
+        </button>
 
         <div class="auth-buttons" id="auth-buttons">
           <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
@@ -55,6 +67,22 @@
       </div>
     </div>
   </header>
+
+  <!-- Favoriler Panel -->
+  <div class="favorites-overlay" id="favorites-overlay"></div>
+  <aside class="favorites-panel" id="favorites-panel" aria-live="polite">
+    <div class="favorites-panel-header">
+      <div>
+        <p class="favorites-panel-eyebrow">Favoriler</p>
+        <h2>Beğendiğiniz Ürünler</h2>
+      </div>
+      <button class="favorites-panel-close" type="button" aria-label="Favorileri kapat" id="favorites-close">✕</button>
+    </div>
+    <div class="favorites-panel-body">
+      <ul class="favorites-items" data-favorites-list></ul>
+      <p class="favorites-empty" data-favorites-empty>Favorileriniz boş.</p>
+    </div>
+  </aside>
 
   <div class="cart-toast" id="cart-toast" role="status" aria-live="polite">
     <div class="cart-toast-info">
@@ -86,17 +114,24 @@
         <span data-cart-shipping>0 TL</span>
       </div>
       <div class="cart-grandtotal" data-cart-grandtotal>Toplam: 0 TL</div>
-      <div class="cart-address">
-        <div>
-          <p class="cart-address-label">Teslimat Bilgileri</p>
-          <p class="cart-address-recipient">
-            <span data-cart-name>Ad Soyad</span>
-            <span data-cart-phone>+90 --- --- -- --</span>
-          </p>
-          <p class="cart-address-value" data-cart-street>Teslimat adresi henüz eklenmedi.</p>
+      <section class="cart-address">
+        <div class="cart-section-header">
+          <h3>Teslimat Adresi</h3>
+          <button type="button" id="edit-address" class="link-button">
+            Değiştir
+          </button>
         </div>
-        <button class="address-edit" type="button" id="edit-address">Düzenle</button>
-      </div>
+
+        <div class="cart-address-body">
+          <p class="cart-address-recipient" data-cart-name>Ad Soyad</p>
+          <p class="cart-address-line" data-cart-street>
+            Teslimat adresi henüz eklenmedi.
+          </p>
+          <p class="cart-address-phone">
+            Tel: <span data-cart-phone>+90 --- --- -- --</span>
+          </p>
+        </div>
+      </section>
       <button class="checkout-btn" type="button">Alışverişi Tamamla</button>
     </div>
   </aside>
@@ -104,18 +139,289 @@
   <main class="products-page">
     <section class="container products-hero">
       <div class="products-hero-header">
-        <button class="category-filter-btn" id="category-filter-btn" type="button">
-          <span>☰</span>
-          <span>Kategoriler</span>
-        </button>
+        <div class="filter-buttons">
+          <button class="category-filter-btn" id="category-filter-btn" type="button">
+            <span>☰</span>
+            <span>Kategoriler</span>
+          </button>
+          <button class="filter-btn" id="filter-btn" type="button">
+            <span>🔍</span>
+            <span>Filtrele</span>
+          </button>
+        </div>
         <div class="category-panel" id="category-panel">
           <div class="category-panel-inner">
             <button class="category-option active" data-category="all">Tümü</button>
-            <button class="category-option" data-category="kadin">Kadın</button>
-            <button class="category-option" data-category="erkek">Erkek</button>
-            <button class="category-option" data-category="anne-cocuk">Anne & Çocuk</button>
-            <button class="category-option" data-category="ayakkabi-canta">Ayakkabı & Çanta</button>
-            <button class="category-option" data-category="ev-yasam">Ev & Yaşam</button>
+            
+            <div class="category-group" data-category-group="kadin">
+              <button class="category-option category-main" data-category="kadin">Kadın</button>
+              <div class="category-subcategories">
+                <button class="category-suboption" data-category="alt-giyim">Alt Giyim</button>
+                <button class="category-suboption" data-category="ust-giyim">Üst Giyim</button>
+                <button class="category-suboption" data-category="dis-giyim">Dış Giyim</button>
+                <button class="category-suboption" data-category="elbise">Elbise</button>
+                <button class="category-suboption" data-category="spor-giyim">Spor Giyim</button>
+                <button class="category-suboption" data-category="bluz">Bluz</button>
+                <button class="category-suboption" data-category="kazak">Kazak</button>
+                <button class="category-suboption" data-category="hirka">Hırka</button>
+                <button class="category-suboption" data-category="ceket">Ceket</button>
+                <button class="category-suboption" data-category="pantolon">Pantolon</button>
+                <button class="category-suboption" data-category="jean">Jean</button>
+              </div>
+            </div>
+            
+            <div class="category-group" data-category-group="erkek">
+              <button class="category-option category-main" data-category="erkek">Erkek</button>
+              <div class="category-subcategories">
+                <button class="category-suboption" data-category="erkek-alt-giyim">Alt Giyim</button>
+                <button class="category-suboption" data-category="erkek-ust-giyim">Üst Giyim</button>
+                <button class="category-suboption" data-category="erkek-dis-giyim">Dış Giyim</button>
+                <button class="category-suboption" data-category="erkek-spor">Spor Giyim</button>
+                <button class="category-suboption" data-category="erkek-gomlek">Gömlek</button>
+                <button class="category-suboption" data-category="erkek-tisort">Tişört</button>
+                <button class="category-suboption" data-category="erkek-pantolon">Pantolon</button>
+                <button class="category-suboption" data-category="erkek-jean">Jean</button>
+                <button class="category-suboption" data-category="erkek-ceket">Ceket</button>
+                <button class="category-suboption" data-category="erkek-mont">Mont</button>
+              </div>
+            </div>
+            
+            <div class="category-group" data-category-group="ayakkabi-canta">
+              <button class="category-option category-main" data-category="ayakkabi-canta">Ayakkabı & Çanta</button>
+              <div class="category-subcategories">
+                <button class="category-suboption" data-category="ayakkabi-kadin">Kadın Ayakkabı</button>
+                <button class="category-suboption" data-category="ayakkabi-erkek">Erkek Ayakkabı</button>
+                <button class="category-suboption" data-category="spor-ayakkabi">Spor Ayakkabı</button>
+                <button class="category-suboption" data-category="bot">Bot</button>
+                <button class="category-suboption" data-category="cizme">Çizme</button>
+                <button class="category-suboption" data-category="canta">Çanta</button>
+                <button class="category-suboption" data-category="sirt-cantasi">Sırt Çantası</button>
+                <button class="category-suboption" data-category="cuzdan">Cüzdan</button>
+                <button class="category-suboption" data-category="aksesuar">Aksesuar</button>
+              </div>
+            </div>
+            
+            <div class="category-group" data-category-group="spor">
+              <button class="category-option category-main" data-category="spor">Spor</button>
+              <div class="category-subcategories">
+                <button class="category-suboption" data-category="spor-kadin">Kadın Spor</button>
+                <button class="category-suboption" data-category="spor-erkek">Erkek Spor</button>
+                <button class="category-suboption" data-category="spor-ayakkabi">Spor Ayakkabı</button>
+                <button class="category-suboption" data-category="spor-canta">Spor Çanta</button>
+                <button class="category-suboption" data-category="spor-aksesuar">Spor Aksesuar</button>
+                <button class="category-suboption" data-category="fitness">Fitness</button>
+                <button class="category-suboption" data-category="kosu">Koşu</button>
+                <button class="category-suboption" data-category="yoga">Yoga</button>
+              </div>
+            </div>
+            
+            <div class="category-group" data-category-group="anne-cocuk">
+              <button class="category-option category-main" data-category="anne-cocuk">Anne & Çocuk</button>
+              <div class="category-subcategories">
+                <button class="category-suboption" data-category="bebek-giyim">Bebek Giyim</button>
+                <button class="category-suboption" data-category="cocuk-giyim">Çocuk Giyim</button>
+                <button class="category-suboption" data-category="hamile-giyim">Hamile Giyim</button>
+                <button class="category-suboption" data-category="oyuncak">Oyuncak</button>
+                <button class="category-suboption" data-category="bebek-bakim">Bebek Bakım</button>
+                <button class="category-suboption" data-category="cocuk-ayakkabi">Çocuk Ayakkabı</button>
+                <button class="category-suboption" data-category="bebek-odasi">Bebek Odası</button>
+                <button class="category-suboption" data-category="anne-cocuk-aksesuar">Aksesuar</button>
+              </div>
+            </div>
+            
+            <div class="category-group" data-category-group="ev-yasam">
+              <button class="category-option category-main" data-category="ev-yasam">Ev & Yaşam</button>
+              <div class="category-subcategories">
+                <button class="category-suboption" data-category="dekorasyon">Dekorasyon</button>
+                <button class="category-suboption" data-category="mutfak">Mutfak</button>
+                <button class="category-suboption" data-category="yatak-odasi">Yatak Odası</button>
+                <button class="category-suboption" data-category="banyo">Banyo</button>
+                <button class="category-suboption" data-category="oturma-odasi">Oturma Odası</button>
+                <button class="category-suboption" data-category="aydinlatma">Aydınlatma</button>
+                <button class="category-suboption" data-category="tekstil">Tekstil</button>
+                <button class="category-suboption" data-category="organizasyon">Organizasyon</button>
+                <button class="category-suboption" data-category="bahce">Bahçe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Filtre Paneli -->
+        <div class="filter-panel" id="filter-panel">
+          <div class="filter-panel-header">
+            <h3>Filtrele</h3>
+            <button class="filter-close" type="button" id="filter-close">✕</button>
+          </div>
+          <div class="filter-panel-body">
+            <!-- Sıralama -->
+            <div class="filter-section">
+              <label class="filter-label">Sıralama</label>
+              <select class="filter-select" id="sort-select">
+                <option value="default">Varsayılan</option>
+                <option value="price-low">En Düşük Fiyat</option>
+                <option value="price-high">En Yüksek Fiyat</option>
+                <option value="name-asc">İsme Göre (A-Z)</option>
+                <option value="name-desc">İsme Göre (Z-A)</option>
+              </select>
+            </div>
+            
+            <!-- Fiyat Aralığı -->
+            <div class="filter-section">
+              <label class="filter-label">Fiyat Aralığı</label>
+              <div class="price-range">
+                <input type="number" class="price-input" id="price-min" placeholder="Min" min="0" />
+                <span class="price-separator">-</span>
+                <input type="number" class="price-input" id="price-max" placeholder="Max" min="0" />
+              </div>
+            </div>
+            
+            <!-- Beden -->
+            <div class="filter-section">
+              <label class="filter-label">Beden</label>
+              <div class="filter-chips">
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="size" value="XS" />
+                  <span>XS</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="size" value="S" />
+                  <span>S</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="size" value="M" />
+                  <span>M</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="size" value="L" />
+                  <span>L</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="size" value="XL" />
+                  <span>XL</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="size" value="XXL" />
+                  <span>XXL</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Ayakkabı Numarası -->
+            <div class="filter-section">
+              <label class="filter-label">Ayakkabı Numarası</label>
+              <div class="filter-chips">
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="35" />
+                  <span>35</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="36" />
+                  <span>36</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="37" />
+                  <span>37</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="38" />
+                  <span>38</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="39" />
+                  <span>39</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="40" />
+                  <span>40</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="41" />
+                  <span>41</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="42" />
+                  <span>42</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="43" />
+                  <span>43</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="shoe-size" value="44" />
+                  <span>44</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Renk -->
+            <div class="filter-section">
+              <label class="filter-label">Renk</label>
+              <div class="filter-chips">
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="siyah" />
+                  <span>Siyah</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="beyaz" />
+                  <span>Beyaz</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="gri" />
+                  <span>Gri</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="bej" />
+                  <span>Bej</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="mavi" />
+                  <span>Mavi</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="kirmizi" />
+                  <span>Kırmızı</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="yesil" />
+                  <span>Yeşil</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="color" value="sari" />
+                  <span>Sarı</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Yaş -->
+            <div class="filter-section">
+              <label class="filter-label">Yaş</label>
+              <div class="filter-chips">
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="age" value="0-2" />
+                  <span>0-2 Yaş</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="age" value="3-5" />
+                  <span>3-5 Yaş</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="age" value="6-8" />
+                  <span>6-8 Yaş</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="age" value="9-12" />
+                  <span>9-12 Yaş</span>
+                </label>
+                <label class="filter-chip-label">
+                  <input type="checkbox" name="age" value="13+" />
+                  <span>13+ Yaş</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="filter-panel-footer">
+            <button class="filter-clear-btn" type="button" id="filter-clear">Temizle</button>
+            <button class="filter-apply-btn" type="button" id="filter-apply">Uygula</button>
           </div>
         </div>
       </div>
@@ -127,8 +433,10 @@
       </p>
     </section>
 
-    <section class="container">
-      <div class="products-grid pro">
+    <section class="container products-section">
+      <div class="products-layout">
+        <div class="products-main">
+          <div class="products-grid pro" data-products-grid>
         <article class="product-card pro" data-product-category="ev-yasam">
           <div class="product-media">
             <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=800&q=80" alt="Minimal masa üstü dekor seti" loading="lazy" />
@@ -290,6 +598,8 @@
             </div>
           </div>
         </article>
+          </div>
+        </div>
       </div>
     </section>
   </main>

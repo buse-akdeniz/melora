@@ -14,7 +14,13 @@
         <button
           class="menu-toggle"
           aria-label="Menüyü aç/kapat"
-          onclick="document.getElementById('mobile-menu').classList.toggle('show')"
+          aria-expanded="false"
+          onclick="
+            const menu = document.getElementById('mobile-menu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            menu.classList.toggle('show');
+          "
         >
           ☰
         </button>
@@ -30,6 +36,12 @@
           <input type="text" class="search-input" id="search-input" placeholder="Ürün ara..." />
           <button class="search-submit-btn" type="button" aria-label="Ara">🔍</button>
         </div>
+
+        <button class="theme-toggle" type="button" aria-label="Tema değiştir" id="theme-toggle">
+          <span class="theme-toggle-icon sun">☀️</span>
+          <span class="theme-toggle-icon moon">🌙</span>
+          <span class="theme-toggle-slider"></span>
+        </button>
 
         <div class="auth-buttons" id="auth-buttons">
           <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
@@ -48,6 +60,76 @@
       </div>
     </header>
 
+    <!-- Sepet Toast -->
+    <div class="cart-toast" id="cart-toast" role="status" aria-live="polite">
+      <div class="cart-toast-info">
+        <span data-toast-text>Sepetinizde <span data-toast-count>0</span> ürün var</span>
+        <span class="cart-toast-price" data-toast-price>Toplam: 0 TL</span>
+      </div>
+      <div class="cart-toast-actions">
+        <button type="button" class="product-cta ghost small" id="continue-shopping">Alışverişe Devam</button>
+        <button type="button" class="product-cta small" id="go-to-cart">Sepete Git</button>
+      </div>
+    </div>
+
+    <!-- Favoriler Panel -->
+    <div class="favorites-overlay" id="favorites-overlay"></div>
+    <aside class="favorites-panel" id="favorites-panel" aria-live="polite">
+      <div class="favorites-panel-header">
+        <div>
+          <p class="favorites-panel-eyebrow">Favoriler</p>
+          <h2>Beğendiğiniz Ürünler</h2>
+        </div>
+        <button class="favorites-panel-close" type="button" aria-label="Favorileri kapat" id="favorites-close">✕</button>
+      </div>
+      <div class="favorites-panel-body">
+        <ul class="favorites-items" data-favorites-list></ul>
+        <p class="favorites-empty" data-favorites-empty>Favorileriniz boş.</p>
+      </div>
+    </aside>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-panel" id="cart-panel" aria-live="polite">
+      <div class="cart-panel-header">
+        <div>
+          <p class="cart-panel-eyebrow">Sepet</p>
+          <h2>Seçilen Ürünler</h2>
+        </div>
+        <button class="cart-panel-close" type="button" aria-label="Sepeti kapat" id="cart-close">✕</button>
+      </div>
+      <div class="cart-panel-body">
+        <ul class="cart-items" data-cart-list></ul>
+        <p class="cart-empty" data-cart-empty>Sepetiniz boş.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-total" data-cart-total>Ürünler: 0 TL</div>
+        <div class="cart-shipping-row">
+          <span>Kargo</span>
+          <span data-cart-shipping>0 TL</span>
+        </div>
+        <div class="cart-grandtotal" data-cart-grandtotal>Toplam: 0 TL</div>
+        <section class="cart-address">
+          <div class="cart-section-header">
+            <h3>Teslimat Adresi</h3>
+            <button type="button" id="edit-address" class="link-button">
+              Değiştir
+            </button>
+          </div>
+
+          <div class="cart-address-body">
+            <p class="cart-address-recipient" data-cart-name>Ad Soyad</p>
+            <p class="cart-address-line" data-cart-street>
+              Teslimat adresi henüz eklenmedi.
+            </p>
+            <p class="cart-address-phone">
+              Tel: <span data-cart-phone>+90 --- --- -- --</span>
+            </p>
+          </div>
+        </section>
+        <button class="checkout-btn" type="button">Alışverişi Tamamla</button>
+      </div>
+    </aside>
+
     <main class="hero">
       <div class="container hero-content">
         <div class="hero-text">
@@ -64,7 +146,7 @@
       </div>
     </main>
 
-    <section id="about" class="section section-muted" style="display: none;">
+    <section id="about" class="section section-muted is-hidden">
       <div class="container">
         <h2>Hakkımızda</h2>
         <p>
@@ -74,7 +156,7 @@
       </div>
     </section>
 
-    <section id="contact" class="section section-muted" style="display: none;">
+    <section id="contact" class="section section-muted is-hidden">
       <div class="container">
         <h2>İletişim</h2>
         <p>

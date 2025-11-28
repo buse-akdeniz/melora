@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Sepetim | Melora</title>
+  </head>
+
+  <body>
+    <header class="top-bar">
+      <div class="container">
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Melora</a></div>
+        <div class="header-right">
+          <button class="theme-toggle" type="button" aria-label="Tema değiştir" id="theme-toggle">
+            <span class="theme-toggle-icon sun">☀️</span>
+            <span class="theme-toggle-icon moon">🌙</span>
+            <span class="theme-toggle-slider"></span>
+          </button>
+          <nav class="nav-links">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="products.html">Ürünler</a>
+            <a href="index.html#about">Hakkımızda</a>
+            <a href="index.html#contact">İletişim</a>
+          </nav>
+          <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
+            <a href="signup.html" class="auth-btn primary">Üye Ol</a>
+          </div>
+
+          <button class="favorites-button" type="button" aria-label="Favorilerim" id="favorites-toggle">
+            <span class="favorites-icon">♡</span>
+            <span class="favorites-count" data-favorites-count>0</span>
+          </button>
+
+          <button class="cart-button" type="button" aria-label="Sepetim" id="cart-toggle">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count" data-cart-count>0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Favoriler Panel -->
+    <div class="favorites-overlay" id="favorites-overlay"></div>
+    <aside class="favorites-panel" id="favorites-panel" aria-live="polite">
+      <div class="favorites-panel-header">
+        <div>
+          <p class="favorites-panel-eyebrow">Favoriler</p>
+          <h2>Beğendiğiniz Ürünler</h2>
+        </div>
+        <button class="favorites-panel-close" type="button" aria-label="Favorileri kapat" id="favorites-close">✕</button>
+      </div>
+      <div class="favorites-panel-body">
+        <ul class="favorites-items" data-favorites-list></ul>
+        <p class="favorites-empty" data-favorites-empty>Favorileriniz boş.</p>
+      </div>
+    </aside>
+
+    <main class="cart-page">
+      <div class="container">
+        <div class="cart-page-header">
+          <h1>Sepetim</h1>
+          <p>Sepetinizdeki ürünleri görüntüleyin ve düzenleyin</p>
+        </div>
+
+        <div class="cart-page-grid">
+          <div class="cart-page-main">
+            <div class="cart-items-section">
+              <div class="cart-actions" data-cart-actions style="display: none;">
+                <div class="cart-actions-left">
+                  <label class="cart-checkbox-label">
+                    <input type="checkbox" id="cart-select-all" />
+                    <span>Tümünü Seç</span>
+                  </label>
+                </div>
+                <div class="cart-actions-right">
+                  <button type="button" class="cart-action-btn" id="cart-remove-selected">Seçilenleri Çıkar</button>
+                </div>
+              </div>
+              <ul class="cart-items-list" data-cart-list></ul>
+              <p class="cart-empty-message" data-cart-empty>Sepetiniz boş.</p>
+            </div>
+          </div>
+
+          <aside class="cart-page-sidebar">
+            <div class="cart-summary">
+              <h2>Sipariş Özeti</h2>
+              <div class="cart-summary-row">
+                <span>Ürünler</span>
+                <span data-cart-total>0 TL</span>
+              </div>
+              <div class="cart-summary-row">
+                <span>Kargo</span>
+                <span data-cart-shipping>0 TL</span>
+              </div>
+              <div class="cart-summary-divider"></div>
+              <div class="cart-summary-row total">
+                <span>Toplam</span>
+                <span data-cart-grandtotal>0 TL</span>
+              </div>
+              <button class="checkout-btn" type="button" id="checkout-btn">Alışverişi Tamamla</button>
+            </div>
+
+            <section class="cart-address">
+              <div class="cart-section-header">
+                <h3>Teslimat Adresi</h3>
+                <button type="button" id="edit-address" class="link-button">
+                  Değiştir
+                </button>
+              </div>
+              <div class="cart-address-body">
+                <p class="cart-address-recipient" data-cart-name>Ad Soyad</p>
+                <p class="cart-address-line" data-cart-street>
+                  Teslimat adresi henüz eklenmedi.
+                </p>
+                <p class="cart-address-phone">
+                  Tel: <span data-cart-phone>+90 --- --- -- --</span>
+                </p>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <!-- Ürün Detay Modal -->
+    <div class="product-detail-modal" id="product-detail-modal">
+      <div class="product-detail-overlay" id="product-detail-overlay"></div>
+      <div class="product-detail-content">
+        <button class="product-detail-close" type="button" aria-label="Kapat" id="product-detail-close">✕</button>
+        <div class="product-detail-image">
+          <img id="product-detail-img" src="" alt="" />
+        </div>
+        <div class="product-detail-info">
+          <h2 id="product-detail-name"></h2>
+          <p id="product-detail-description"></p>
+          <div class="product-detail-price">
+            <span id="product-detail-price"></span>
+          </div>
+          <div class="product-detail-actions">
+            <button class="btn btn-primary" type="button" id="product-detail-add-cart">Sepete Ekle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Melora. Tüm hakları saklıdır.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

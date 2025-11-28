@@ -12,6 +12,11 @@
       <div class="container">
         <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Melora</a></div>
         <div class="header-right">
+          <button class="theme-toggle" type="button" aria-label="Tema değiştir" id="theme-toggle">
+            <span class="theme-toggle-icon sun">☀️</span>
+            <span class="theme-toggle-icon moon">🌙</span>
+            <span class="theme-toggle-slider"></span>
+          </button>
           <nav class="nav-links">
             <a href="index.html">Ana Sayfa</a>
             <a href="products.html">Ürünler</a>
@@ -22,9 +27,61 @@
             <a href="login.html" class="auth-btn ghost">Giriş Yap</a>
             <a href="signup.html" class="auth-btn primary">Üye Ol</a>
           </div>
+
+          <button class="favorites-button" type="button" aria-label="Favorilerim" id="favorites-toggle">
+            <span class="favorites-icon">♡</span>
+            <span class="favorites-count" data-favorites-count>0</span>
+          </button>
+
+          <button class="cart-button" type="button" aria-label="Sepetim" id="cart-toggle">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count" data-cart-count>0</span>
+          </button>
         </div>
       </div>
     </header>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-panel" id="cart-panel" aria-live="polite">
+      <div class="cart-panel-header">
+        <div>
+          <p class="cart-panel-eyebrow">Sepet</p>
+          <h2>Seçilen Ürünler</h2>
+        </div>
+        <button class="cart-panel-close" type="button" aria-label="Sepeti kapat" id="cart-close">✕</button>
+      </div>
+      <div class="cart-panel-body">
+        <ul class="cart-items" data-cart-list></ul>
+        <p class="cart-empty" data-cart-empty>Sepetiniz boş.</p>
+      </div>
+      <div class="cart-panel-footer">
+        <div class="cart-total" data-cart-total>Ürünler: 0 TL</div>
+        <div class="cart-shipping-row">
+          <span>Kargo</span>
+          <span data-cart-shipping>0 TL</span>
+        </div>
+        <div class="cart-grandtotal" data-cart-grandtotal>Toplam: 0 TL</div>
+        <section class="cart-address">
+          <div class="cart-section-header">
+            <h3>Teslimat Adresi</h3>
+            <button type="button" id="edit-address" class="link-button">
+              Değiştir
+            </button>
+          </div>
+
+          <div class="cart-address-body">
+            <p class="cart-address-recipient" data-cart-name>Ad Soyad</p>
+            <p class="cart-address-line" data-cart-street>
+              Teslimat adresi henüz eklenmedi.
+            </p>
+            <p class="cart-address-phone">
+              Tel: <span data-cart-phone>+90 --- --- -- --</span>
+            </p>
+          </div>
+        </section>
+        <button class="checkout-btn" type="button">Alışverişi Tamamla</button>
+      </div>
+    </aside>
 
     <main class="checkout-page">
       <div class="container">
@@ -56,11 +113,15 @@
                 <div class="form-row">
                   <div class="form-group">
                     <label for="delivery-city">İl</label>
-                    <input type="text" id="delivery-city" name="city" placeholder="İstanbul" required />
+                    <select id="delivery-city" name="city" required>
+                      <option value="">İl Seçiniz</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="delivery-district">İlçe</label>
-                    <input type="text" id="delivery-district" name="district" placeholder="Kadıköy" required />
+                    <select id="delivery-district" name="district" required>
+                      <option value="">Önce il seçiniz</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="delivery-postal">Posta Kodu</label>
@@ -68,6 +129,43 @@
                   </div>
                 </div>
               </form>
+            </section>
+
+            <!-- Kargo Seçenekleri -->
+            <section class="checkout-section">
+              <h2>Kargo Seçenekleri</h2>
+              <div class="shipping-options">
+                <label class="shipping-option">
+                  <input type="radio" name="shipping" value="standard" checked />
+                  <div class="shipping-option-content">
+                    <div class="shipping-option-header">
+                      <strong>Standart Kargo</strong>
+                      <span class="shipping-price">49 TL</span>
+                    </div>
+                    <p class="shipping-desc">2-4 iş günü içinde teslimat</p>
+                  </div>
+                </label>
+                <label class="shipping-option">
+                  <input type="radio" name="shipping" value="express" />
+                  <div class="shipping-option-content">
+                    <div class="shipping-option-header">
+                      <strong>Hızlı Kargo</strong>
+                      <span class="shipping-price">79 TL</span>
+                    </div>
+                    <p class="shipping-desc">1-2 iş günü içinde teslimat</p>
+                  </div>
+                </label>
+                <label class="shipping-option">
+                  <input type="radio" name="shipping" value="free" />
+                  <div class="shipping-option-content">
+                    <div class="shipping-option-header">
+                      <strong>Ücretsiz Kargo</strong>
+                      <span class="shipping-price">Ücretsiz</span>
+                    </div>
+                    <p class="shipping-desc">500 TL ve üzeri siparişlerde (2-4 iş günü)</p>
+                  </div>
+                </label>
+              </div>
             </section>
 
             <!-- Ödeme Yöntemi -->
@@ -128,6 +226,27 @@
                 </div>
               </div>
             </section>
+
+            <!-- 3D Secure Doğrulama Modal -->
+            <div class="secure3d-overlay" id="secure3d-overlay" style="display: none;">
+              <div class="secure3d-modal">
+                <div class="secure3d-header">
+                  <h3>3D Secure Doğrulama</h3>
+                  <p>Güvenli ödeme için telefonunuza gönderilen doğrulama kodunu girin</p>
+                </div>
+                <div class="secure3d-body">
+                  <div class="form-group">
+                    <label for="secure3d-code">Doğrulama Kodu</label>
+                    <input type="text" id="secure3d-code" name="secure3dCode" placeholder="123456" maxlength="6" />
+                    <p class="secure3d-hint">Kodunuz telefon numaranıza SMS olarak gönderilmiştir.</p>
+                  </div>
+                  <div class="secure3d-actions">
+                    <button type="button" class="btn btn-ghost" id="cancel-3d">İptal</button>
+                    <button type="button" class="btn btn-primary" id="verify-3d">Doğrula</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <!-- Fatura Bilgileri -->
             <section class="checkout-section">
