@@ -1599,7 +1599,6 @@ function initLoginPage() {
     localStorage.setItem("meloraUser", JSON.stringify(userData));
     localStorage.setItem("meloraLoggedIn", "true");
     
-    alert("Giriş başarılı! Yönlendiriliyorsunuz...");
     window.location.href = "products.html";
   });
 }
@@ -1630,7 +1629,6 @@ function initSignupPage() {
     localStorage.setItem("meloraUser", JSON.stringify(userData));
     localStorage.setItem("meloraLoggedIn", "true");
     
-    alert("Üyelik başarıyla oluşturuldu! Yönlendiriliyorsunuz...");
     window.location.href = "products.html";
   });
 }
